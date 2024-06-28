@@ -15,8 +15,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 
-// Routers
-app.use('/api', routers);
+
+app.use('/', routers);
 
 
 app.listen(port, () => {

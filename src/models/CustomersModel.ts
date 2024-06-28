@@ -1,28 +1,30 @@
-import { Schema, Model, model } from "mongoose"
 
-interface Addresses {
-    street: string;
-    city: string;
-    country: string;
+import { Schema, Model, model, Document } from 'mongoose';
+
+interface Address {
+  street: string;
+  city: string;
+  country: string;
 }
 
-interface Customer  {
-    name: string;
-    email: string;
-    addresses: Addresses[];
+interface Customer extends Document {
+  name: string;
+  email: string;
+  addresses: Address[];
 }
 
-const addressSchema = new Schema<Addresses>({
-    street: { type: String, required: true },
-    city: { type: String, required: true },
-    country: { type: String, required: true },
-  });
+const addressSchema = new Schema<Address>({
+  street: { type: String, required: true },
+  city: { type: String, required: true },
+  country: { type: String, required: true }
+}); 
 
-  const customerSchema = new Schema<Customer>({
-    name: { type: String, required: true },
-    addresses: { type: [addressSchema], required: true },
-  });
+const customerSchema = new Schema<Customer>({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  addresses: [addressSchema] 
+});
 
-  const Customer: Model<Customer> = model<Customer>('Customer', customerSchema);
+const CustomerModel: Model<Customer> = model<Customer>('Customer', customerSchema);
 
-  export default Customer;
+export default CustomerModel;
